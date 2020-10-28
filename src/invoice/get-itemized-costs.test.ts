@@ -74,27 +74,27 @@ const testEvents = {
     date: 'September 23, 2020',
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90.3
-      }
+        'ticket-name-contains': '*',
+        'net-price': 90.3,
+      },
     ],
   },
   multipleDatesSingleCatering: {
     label: 'JSConf Budapest 2021',
     dates: [
       {
-        'ticket-name-contains': "Workshop",
-        date: "April 8, 2020"
+        'ticket-name-contains': 'Workshop',
+        date: 'April 8, 2020',
       },
       {
-        'ticket-name-contains': "*",
-        date: "April 6-7, 2020"
-      }
+        'ticket-name-contains': '*',
+        date: 'April 6-7, 2020',
+      },
     ],
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90
+        'ticket-name-contains': '*',
+        'net-price': 90,
       },
     ],
   },
@@ -102,143 +102,142 @@ const testEvents = {
     label: 'JSConf Budapest 2021',
     dates: [
       {
-        'ticket-name-contains': "*",
-        date: "April 6-7, 2020"
-      }
+        'ticket-name-contains': '*',
+        date: 'April 6-7, 2020',
+      },
     ],
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90
+        'ticket-name-contains': '*',
+        'net-price': 90,
       },
       {
-        'ticket-name-contains': "Double",
-        'net-price': 180
-      }
-    ]
+        'ticket-name-contains': 'Double',
+        'net-price': 180,
+      },
+    ],
   },
   multipleDateMultipleCatering: {
     label: 'JSConf Budapest 2021',
     dates: [
       {
-        'ticket-name-contains': "Workshop",
-        date: "April 8, 2020"
+        'ticket-name-contains': 'Workshop',
+        date: 'April 8, 2020',
       },
       {
-        'ticket-name-contains': "*",
-        date: "April 6-7, 2020"
-      }
+        'ticket-name-contains': '*',
+        date: 'April 6-7, 2020',
+      },
     ],
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90
+        'ticket-name-contains': '*',
+        'net-price': 90,
       },
       {
-        'ticket-name-contains': "Double",
-        'net-price': 180
+        'ticket-name-contains': 'Double',
+        'net-price': 180,
       },
       {
-        'ticket-name-contains': "Workshop",
-        'net-price': 45
-      }
-    ]
+        'ticket-name-contains': 'Workshop',
+        'net-price': 45,
+      },
+    ],
   },
   multipleDateFreeCatering: {
     label: 'JSConf Budapest 2021',
     dates: [
       {
-        'ticket-name-contains': "Workshop",
-        date: "April 8, 2020"
+        'ticket-name-contains': 'Workshop',
+        date: 'April 8, 2020',
       },
       {
-        'ticket-name-contains': "*",
-        date: "April 6-7, 2020"
-      }
+        'ticket-name-contains': '*',
+        date: 'April 6-7, 2020',
+      },
     ],
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90
+        'ticket-name-contains': '*',
+        'net-price': 90,
       },
       {
-        'ticket-name-contains': "Double",
-        'net-price': 180
+        'ticket-name-contains': 'Double',
+        'net-price': 180,
       },
       {
-        'ticket-name-contains': "Online",
-        'net-price': 0
+        'ticket-name-contains': 'Online',
+        'net-price': 0,
       },
-    ]
+    ],
   },
   fixDateFreeCatering: {
     label: 'JSConf Budapest 2021',
     dates: [
       {
-        'ticket-name-contains': "*",
-        date: "April 6-7, 2020"
-      }
+        'ticket-name-contains': '*',
+        date: 'April 6-7, 2020',
+      },
     ],
     catering: [
       {
-        'ticket-name-contains': "*",
-        'net-price': 90
+        'ticket-name-contains': '*',
+        'net-price': 90,
       },
       {
-        'ticket-name-contains': "Double",
-        'net-price': 180
+        'ticket-name-contains': 'Double',
+        'net-price': 180,
       },
       {
-        'ticket-name-contains': "Online",
-        'net-price': 0
+        'ticket-name-contains': 'Online',
+        'net-price': 0,
       },
-    ]
+    ],
   },
-}
+};
 
 describe('catering', () => {
   test('create 2 items or every ticket type', () => {
-    const items = getItemizedCosts([ tickets[0] ], testEvents.fixDateSingleCatering);
+    const items = getItemizedCosts([tickets[0]], testEvents.fixDateSingleCatering);
     expect(items).toHaveLength(2);
   });
 
   test('item names and comments are correct', () => {
-    const items = getItemizedCosts([ tickets[0] ], testEvents.fixDateSingleCatering);
+    const items = getItemizedCosts([tickets[0]], testEvents.fixDateSingleCatering);
     expect(items[0].label).toBe('Early Bird');
     expect(items[0].comment).toBe('Ticket for JSConf Budapest 2021, September 23, 2020');
     expect(items[1].label).toBe('Conference catering fee');
   });
 
   test('rounds prices to 2 digits', () => {
-    const items = getItemizedCosts([ tickets[0] ], testEvents.fixDateSingleCatering);
+    const items = getItemizedCosts([tickets[0]], testEvents.fixDateSingleCatering);
 
     expect(items[0].grossUnitPrice.toString().split('.')[1].length).toBe(2);
     expect(items[1].grossUnitPrice.toString().split('.')[1].length).toBe(2);
   });
 
   test('rounding without errors', () => {
-    const items = getItemizedCosts([ tickets[0] ], testEvents.fixDateSingleCatering);
+    const items = getItemizedCosts([tickets[0]], testEvents.fixDateSingleCatering);
 
     expect((items[0].grossUnitPrice + items[1].grossUnitPrice)).toBe(205);
   });
 
   test('skip catering item if its free', () => {
-    const items = getItemizedCosts([ tickets[0], tickets[4] ], testEvents.fixDateFreeCatering);
+    const items = getItemizedCosts([tickets[0], tickets[4]], testEvents.fixDateFreeCatering);
 
     expect(items).toHaveLength(3);
     expect(items[2].grossUnitPrice).toBe(150);
-  })
+  });
 
   test('skip items if they are free', () => {
-    const items = getItemizedCosts([ tickets[1], tickets[4] ], testEvents.fixDateFreeCatering);
+    const items = getItemizedCosts([tickets[1], tickets[4]], testEvents.fixDateFreeCatering);
 
     expect(items).toHaveLength(1);
     expect(items[0].grossUnitPrice).toBe(150);
-  })
+  });
 
   test('multiple orders with different catering', () => {
-
-    const items = getItemizedCosts([ tickets[0], tickets[3] ], testEvents.fixDateMultipleCatering);
+    const items = getItemizedCosts([tickets[0], tickets[3]], testEvents.fixDateMultipleCatering);
 
     expect((items[0].grossUnitPrice + items[1].grossUnitPrice)).toBe(205);
     expect((items[2].grossUnitPrice + items[3].grossUnitPrice)).toBe(450);
@@ -247,7 +246,7 @@ describe('catering', () => {
 
 describe('event date', () => {
   test('determines date according to ticket name', () => {
-    const items = getItemizedCosts([ tickets[2] ], testEvents.fixDateSingleCatering);
+    const items = getItemizedCosts([tickets[2]], testEvents.fixDateSingleCatering);
 
     expect(items).toHaveLength(2);
     expect(items[0].label).toBe('Early Workshop ticket');
@@ -256,14 +255,12 @@ describe('event date', () => {
   });
 
   test('multiple orders with different date', () => {
-
-    const items = getItemizedCosts([ tickets[0], tickets[2] ], testEvents.multipleDateMultipleCatering);
+    const items = getItemizedCosts([tickets[0], tickets[2]], testEvents.multipleDateMultipleCatering);
 
     expect(items).toHaveLength(4);
     expect(items[0].comment).toBe('Ticket for JSConf Budapest 2021, April 6-7, 2020');
     expect(items[2].comment).toBe('Ticket for JSConf Budapest 2021, April 8, 2020');
-  })
+  });
 });
-
 
 

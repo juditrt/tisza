@@ -1,12 +1,12 @@
 import roundTo from 'round-to';
 import getCateringPerTicket from './get-catering-per-ticket';
-import getPropertyByTicketType from './get-property-by-ticket-type'
+import getPropertyByTicketType from './get-property-by-ticket-type';
 
 const getDate = (ticket, config) => {
-  if (typeof config.dates === 'undefined') return config.date
+  if (typeof config.dates === 'undefined') return config.date;
 
-  return getPropertyByTicketType(ticket, 'date', config.dates)
-}
+  return getPropertyByTicketType(ticket, 'date', config.dates);
+};
 
 export default (tickets, eventConfig) => tickets.reduce((items, ticket) => {
     const {
@@ -19,7 +19,7 @@ export default (tickets, eventConfig) => tickets.reduce((items, ticket) => {
       return items;
     }
 
-    const date = getDate(title, eventConfig)
+    const date = getDate(title, eventConfig);
     const cateringPartial = getCateringPerTicket(title, eventConfig);
     const ticketPartial = roundTo(price - (cateringPartial * 1.27), 2);
 

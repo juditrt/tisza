@@ -142,6 +142,8 @@ events:
         This document was issued electronically and is therefore valid without signature.
       # issue e-invoices or not (has to be enabled for the szamlazz.hu account)
       e-invoice: false
+      # currency for the invoice EUR | USD | HUF ...  (see https://github.com/ewngs/szamlazz.js/#currency)
+      currency: EUR
 
     # setup for sending invoice through email in szamlazz.hu
     email:

@@ -1,17 +1,17 @@
-import { promisify } from 'util'
-import fs from 'fs'
-import yaml from 'yaml'
+import { promisify } from 'util';
+import fs from 'fs';
+import yaml from 'yaml';
 
 export default async () => {
   const readFile = promisify(fs.readFile);
   const file = await readFile('./events-config.yaml', 'utf8');
 
-  const config = yaml.parse(file)
+  const config = yaml.parse(file);
 
-  Object.keys(config.events).map(eventSlug => {
-    const tokenEnv = config.events[eventSlug]['tito-signature-validator-env']
-    config.events[eventSlug]['tito-token'] = process.env[tokenEnv]
-  })
+  Object.keys(config.events).map((eventSlug) => {
+    const tokenEnv = config.events[eventSlug]['tito-signature-validator-env'];
+    config.events[eventSlug]['tito-token'] = process.env[tokenEnv];
+  });
 
-  return config
-}
+  return config;
+};

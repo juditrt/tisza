@@ -1,8 +1,8 @@
-import getTitoOrder from '../tito/get-order'
-import createClient from '../szamlazzhu/create-client'
+import getTitoOrder from '../tito/get-order';
+import createClient from '../szamlazzhu/create-client';
 import sendInvoice from '../szamlazzhu/send-invoice';
-import createInvoice from '../invoice/create'
-import errorHandler from '../error-handler'
+import createInvoice from '../invoice/create';
+import errorHandler from '../error-handler';
 
 export default async (request, reply) => {
   const {
@@ -22,8 +22,8 @@ export default async (request, reply) => {
   }
 
   try {
-    const order = await getTitoOrder(account, event, registration, process.env.TITO_API_TOKEN)
-    const invoice = await createInvoice(order, request.eventConfig)
+    const order = await getTitoOrder(account, event, registration, process.env.TITO_API_TOKEN);
+    const invoice = await createInvoice(order, request.eventConfig);
 
     if (process.env.NODE_ENV === 'production') {
       const result = await sendInvoice(
@@ -34,10 +34,8 @@ export default async (request, reply) => {
     } else {
       reply.send(JSON.stringify(invoice));
     }
-
-
   } catch (error) {
     await errorHandler('ERROR: Invoice creation failed', error, request);
-    reply.internalServerError('Invoice creation failed')
+    reply.internalServerError('Invoice creation failed');
   }
 };

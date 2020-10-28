@@ -15,5 +15,5 @@ export default async (
     }
   );
 
-  return request.data
-}
+  return request.data;
+};

@@ -2,7 +2,7 @@
 import crypto from 'crypto';
 
 export default async (request, reply) => {
-  //if (process.env.NODE_ENV !== 'production') return;
+  // if (process.env.NODE_ENV !== 'production') return;
 
   const signature = request.headers['tito-signature'];
 
@@ -12,12 +12,9 @@ export default async (request, reply) => {
     .digest('base64');
 
   if (signature !== hmac) {
-    reply.notAcceptable()
+    reply.notAcceptable();
     console.error(`Tito signature STILL CANNOT BE VERIFIED "${signature}"`);
-    console.error('hmac', hmac)
-    console.error('raw body', request.rawBody)
-    return
+    console.error('hmac', hmac);
+    console.error('raw body', request.rawBody);
   }
-
-  return
 };

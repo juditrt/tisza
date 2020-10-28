@@ -1,4 +1,4 @@
-import api from '../api'
+import api from '../api';
 
 export default async (
   account,
@@ -7,10 +7,9 @@ export default async (
   token,
   titoApi = api,
 ) => {
-
-  const url = `https://api.tito.io/v3/${account}/${event}/registrations/${registration}?view=extended`
+  const url = `https://api.tito.io/v3/${account}/${event}/registrations/${registration}?view=extended`;
 
   const data = await titoApi(url, token);
 
-  return data.registration
-}
+  return data.registration;
+};

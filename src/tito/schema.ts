@@ -1,16 +1,16 @@
 export default {
   querystring: {
     type: 'object',
-    required: [ 'token' ],
+    required: ['token'],
     properties: {
       token: { type: 'string' },
-    }
+    },
   },
   headers: {
     type: 'object',
-    required: ['tito-signature' ],
+    required: ['tito-signature'],
     properties: {
-      'tito-signature': { type: 'string' }
-    }
-  }
-}
+      'tito-signature': { type: 'string' },
+    },
+  },
+};

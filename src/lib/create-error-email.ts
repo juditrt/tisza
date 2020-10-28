@@ -1,5 +1,5 @@
 import yaml from 'yaml';
-import dedent from 'dedent'
+import dedent from 'dedent';
 
 const safeLog = (error) => {
   const message = yaml.stringify(JSON.parse(JSON.stringify(error)));
