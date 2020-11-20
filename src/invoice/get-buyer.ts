@@ -23,6 +23,7 @@ export default (order) : Buyer => {
     email,
     sendEmail: true,
     country,
+    taxNumber: '',
     zip,
     city,
     address: addressWithState,
