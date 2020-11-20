@@ -1,10 +1,10 @@
 import { promisify } from 'util';
 import fs from 'fs';
 import yaml from 'yaml';
-import szamlazz from 'szamlazz.js';
+import szamlazz from '@jssc/szamlazz.js';
 import create from './create';
 
-jest.mock('szamlazz.js');
+jest.mock('@jssc/szamlazz.js');
 
 const readFile = promisify(fs.readFile);
 const order = {
