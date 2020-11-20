@@ -131,9 +131,9 @@ describe('get buyer', () => {
     const order2 = Object.assign({}, order)
     order2.billing_address = Object.assign({}, order.billing_address)
 
-    delete order2.billing_address.vat_number
+    order2.billing_address.vat_number = '0'
 
     const buyer = getBuyer(order2)
-    expect(buyer.taxNumber).toBeUndefined();
+    expect(buyer.taxNumber).toBe('');
 });
 });
