@@ -130,7 +130,6 @@ describe('get buyer', () => {
   test('buyer without vat number', async () => {
     const order2 = { ...order };
     order2.billing_address = { ...order.billing_address };
-
     order2.billing_address.vat_number = '0';
 
     const buyer = getBuyer(order2);
