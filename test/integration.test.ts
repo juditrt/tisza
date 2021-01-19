@@ -1,5 +1,3 @@
-
-
 import MockDate from 'mockdate'
 import createInvoice from '../src/invoice/create'
 import createClient from '../src/szamlazzhu/create-client'
@@ -22,10 +20,7 @@ describe('integration', () => {
   test('simple', async () => {
     const invoice = await createInvoice(simpleOrder, simpleConfig);
     const client = createClient(simpleConfig, token)
-
     const xml = client._generateInvoiceXML(invoice)
-
     expect(xml).toMatchSnapshot();
   })
 });
-
