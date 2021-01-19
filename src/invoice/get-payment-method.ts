@@ -12,4 +12,4 @@ export default (order) => {
 
   // paypal_express_checkout
   return szamlazz.PaymentMethod.PayPal;
-}
+};

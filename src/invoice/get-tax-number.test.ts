@@ -118,7 +118,7 @@ const orderData = {
 
 
 describe('get tax number', () => {
-  test('no tax id', async () => {
+  test('no tax id', () => {
       const order = JSON.parse(JSON.stringify(orderData));
 
       order.billing_address.vat_number = null;
@@ -128,7 +128,7 @@ describe('get tax number', () => {
       expect(taxNumber).toBe('');
   });
 
-  test('zero tax id', async () => {
+  test('zero tax id', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
     order.billing_address.vat_number = '0';
@@ -137,7 +137,7 @@ describe('get tax number', () => {
     expect(taxNumber).toBe('');
   });
 
-  test('provided tax id', async () => {
+  test('provided tax id', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
     order.billing_address.vat_number = 'HU21343647';
