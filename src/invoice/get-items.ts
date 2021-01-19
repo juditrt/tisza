@@ -35,6 +35,7 @@ export default (order, buyer: Buyer, eventConfig) => order.line_items.reduce((it
 
     if (vatRate === 'TEHK') {
       item.netUnitPrice = ticketPartial;
+      item.netValue = (ticketPartial * quantity);
     } else {
       item.grossUnitPrice = ticketPartial; // calculates gross and net values from per item net
     }
@@ -51,6 +52,7 @@ export default (order, buyer: Buyer, eventConfig) => order.line_items.reduce((it
 
       if (vatRate === 'TEHK') {
         cateringItem.netUnitPrice = roundTo(cateringPartial * 1.27, 2);
+        cateringItem.netValue = (roundTo(cateringPartial * 1.27, 2) * quantity);
       } else {
         cateringItem.grossUnitPrice = roundTo(cateringPartial * 1.27, 2); // calculates gross and net values from per item net
       }

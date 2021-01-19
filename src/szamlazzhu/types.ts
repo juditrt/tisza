@@ -29,6 +29,7 @@ export interface Item {
   unit: string;
   vat: string | number;
   comment?: string;
+  netValue?: number;
   netUnitPrice?: number;
   grossUnitPrice?: number;
 }
