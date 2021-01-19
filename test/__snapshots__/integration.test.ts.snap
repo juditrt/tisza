@@ -58,7 +58,9 @@ This document was issued electronically and is therefore valid without signature
     <mennyisegiEgyseg>qt</mennyisegiEgyseg>
     <nettoEgysegar>90.32</nettoEgysegar>
     <afakulcs>TEHK</afakulcs>
+    <nettoErtek>180.64</nettoErtek>
     <afaErtek>0</afaErtek>
+    <bruttoErtek>180.64</bruttoErtek>
     <megjegyzes>Ticket for JSConf Budapest 2021, September 23, 2020</megjegyzes>
   </tetel>
   <tetel>
@@ -67,7 +69,9 @@ This document was issued electronically and is therefore valid without signature
     <mennyisegiEgyseg>qt</mennyisegiEgyseg>
     <nettoEgysegar>114.68</nettoEgysegar>
     <afakulcs>TEHK</afakulcs>
+    <nettoErtek>229.36</nettoErtek>
     <afaErtek>0</afaErtek>
+    <bruttoErtek>229.36</bruttoErtek>
   </tetel>
   </tetelek>
 </xmlszamla>"
