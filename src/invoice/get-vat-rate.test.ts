@@ -1,4 +1,4 @@
-import getPaymentMethod from './get-payment-method';
+import getVatRate from './get-vat-rate';
 
 const orderData = {
   id: 6050550,
@@ -26,7 +26,6 @@ const orderData = {
   company_name: 'Teszt Company GMBH',
   discount_code: null,
   payment_reference: null,
-  payment_option_name: '',
   created_at: '2019-12-18T07:52:21.000Z',
   created_date: '2019-12-18',
   completed_at: '2019-12-18T07:52:35.665Z',
@@ -118,31 +117,67 @@ const orderData = {
 };
 
 
-describe('get payment method from order', () => {
-  test('stripe', () => {
-    const order = JSON.parse(JSON.stringify(orderData));
+describe('get vat rate', () => {
+  test('hu individual / non vat subject', () => {
+      const order = JSON.parse(JSON.stringify(orderData));
 
-    order.payment_option_name = 'stripe';
+      order.billing_address.company_name = '';
+      order.billing_address.vat_number = '0';
+      order.billing_address.country = 'HU';
 
-    const paymentMethod = getPaymentMethod(order);
-    expect(paymentMethod.value).toBe('Bankkártya');
+      const vatRate = getVatRate(order);
+      expect(vatRate).toBe(27);
   });
 
-  test('paypal', () => {
+  test('hu vat subject', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
-    order.payment_option_name = 'paypal_express_checkout';
+    order.billing_address.company_name = 'HU Company Kft';
+    order.billing_address.country = 'HU';
+    order.billing_address.vat_number = '12312412';
 
-    const paymentMethod = getPaymentMethod(order);
-    expect(paymentMethod.value).toBe('PayPal');
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
   });
 
-  test('default to paypal', () => {
+  test('eu individual / non vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = '';
+    order.billing_address.vat_number = '0';
+    order.billing_address.country = 'DE';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
+  });
+
+  test('eu vat subject', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
-    order.payment_option_name = 'unknown';
+    order.billing_address.company_name = 'EU Company Gmbh';
+    order.billing_address.vat_number = '123112';
+    order.billing_address.country = 'DE';
 
-    const paymentMethod = getPaymentMethod(order);
-    expect(paymentMethod.value).toBe('PayPal');
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe('TEHK');
+  });
+
+  test('non-eu individual / non vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = '';
+    order.billing_address.vat_number = '0';
+    order.billing_address.country = 'US';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
+  });
+
+  test('non-eu vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = 'NonEu Company Ltd';
+    order.billing_address.country = 'US';
+    order.billing_address.vat_number = '12312412';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe('TEHK');
   });
 });

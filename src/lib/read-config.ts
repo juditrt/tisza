@@ -8,7 +8,7 @@ export default async () => {
 
   const config = yaml.parse(file);
 
-  Object.keys(config.events).map((eventSlug) => {
+  Object.keys(config.events).forEach((eventSlug) => {
     const tokenEnv = config.events[eventSlug]['tito-signature-validator-env'];
     config.events[eventSlug]['tito-token'] = process.env[tokenEnv];
   });

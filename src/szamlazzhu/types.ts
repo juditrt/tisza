@@ -20,4 +20,5 @@ export interface Buyer {
   identifier: number;
   phone: string;
   issuerName: string;
+  isTEHK: boolean;
 }
