@@ -15,7 +15,7 @@ export default async (
   Invoice: any = szamlazz.Invoice
 ) => {
   const seller = getSeller(config);
-  const buyer = getBuyer(order);
+  const buyer = await getBuyer(order);
   const items = getItems(order, buyer, config).map(item => new Item(item));
 
   if (process.env.DEBUG) {

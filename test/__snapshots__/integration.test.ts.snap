@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`integration basic 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<xmlszamla xmlns=\\"http://www.szamlazz.hu/xmlszamla\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" xsi:schemaLocation=\\"http://www.szamlazz.hu/xmlszamla xmlszamla.xsd\\">
+  <beallitasok>
+    <szamlaagentkulcs>ABCDEFGHIJK</szamlaagentkulcs>
+    <eszamla>true</eszamla>
+    <szamlaLetoltes>false</szamlaLetoltes>
+    <szamlaLetoltesPld>1</szamlaLetoltesPld>
+    <valaszVerzio>1</valaszVerzio>
+  </beallitasok>
+  <fejlec>
+    <keltDatum>2020-11-22</keltDatum>
+    <teljesitesDatum>2020-11-22</teljesitesDatum>
+    <fizetesiHataridoDatum>2020-11-22</fizetesiHataridoDatum>
+    <fizmod>PayPal</fizmod>
+    <penznem>EUR</penznem>
+    <szamlaNyelve>en</szamlaNyelve>
+    <megjegyzes>
+The invoice includes mediated services.
+Paid in full.
+This document was issued electronically and is therefore valid without signature.</megjegyzes>
+    <arfolyamBank></arfolyamBank>
+    <arfolyam>0</arfolyam>
+    <rendelesSzam>K0DF</rendelesSzam>
+    <elolegszamla>false</elolegszamla>
+    <logoExtra>RF-szamlazzhu.png</logoExtra>
+    <szamlaszamElotag>RF</szamlaszamElotag>
+    <fizetve>true</fizetve>
+  </fejlec>
+  <elado>
+    <bank>Raiffeisen Bank, SWIFT: UBRTHUHB</bank>
+    <bankszamlaszam>HU73-1201-0659-0160-2199-0040-0002</bankszamlaszam>
+  </elado>
+  <vevo>
+    <nev>Teszt Company GMBH</nev>
+    <orszag>Germany</orszag>
+    <irsz>1061</irsz>
+    <telepules>Budapest</telepules>
+    <cim>Andrássy út 39 USTREAM Magyarország Kft Budapest</cim>
+    <email>neccccc@gmail.com</email>
+    <sendEmail>true</sendEmail>
+    <adoalany>6</adoalany>
+    <adoszam>234536</adoszam>
+    <postazasiNev>Teszt Company GMBH</postazasiNev>
+    <postazasiIrsz>1061</postazasiIrsz>
+    <postazasiTelepules>Budapest</postazasiTelepules>
+    <postazasiCim>Andrássy út 39 USTREAM Magyarország Kft Budapest</postazasiCim>
+    <azonosito>1</azonosito>
+    <alairoNeve>Szabolcs Szabolcsi-Toth</alairoNeve>
+    <telefonszam></telefonszam>
+  </vevo>
+  <tetelek>
+  <tetel>
+    <megnevezes>Early Bird</megnevezes>
+    <mennyiseg>2</mennyiseg>
+    <mennyisegiEgyseg>qt</mennyisegiEgyseg>
+    <nettoEgysegar>71.12</nettoEgysegar>
+    <afakulcs>27</afakulcs>
+    <nettoErtek>142.23999999999998</nettoErtek>
+    <afaErtek>38.4</afaErtek>
+    <bruttoErtek>180.64</bruttoErtek>
+    <megjegyzes>Ticket for JSConf Budapest 2021, September 23, 2020</megjegyzes>
+  </tetel>
+  <tetel>
+    <megnevezes>Conference catering fee</megnevezes>
+    <mennyiseg>2</mennyiseg>
+    <mennyisegiEgyseg>qt</mennyisegiEgyseg>
+    <nettoEgysegar>90.3</nettoEgysegar>
+    <afakulcs>27</afakulcs>
+    <nettoErtek>180.60000000000002</nettoErtek>
+    <afaErtek>48.76</afaErtek>
+    <bruttoErtek>229.36</bruttoErtek>
+  </tetel>
+  </tetelek>
+</xmlszamla>"
+`;

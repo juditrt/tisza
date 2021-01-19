@@ -1,6 +1,6 @@
 import szamlazz from '@jssc/szamlazz.js';
 
-export default config => new szamlazz.Client({
-    authToken: process.env.SZAMLAZZ_TOKEN,
+export default (config: any, authToken: string) => new szamlazz.Client({
+    authToken,
     eInvoice: config.invoice['e-invoice'],
   });

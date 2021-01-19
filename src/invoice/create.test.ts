@@ -129,7 +129,7 @@ describe('create invoice', () => {
       const file = await readFile('./test-config.yaml', 'utf8');
       const config = (yaml.parse(file)).events['integration-test-event-2020'];
 
-      create(
+      await create(
         order,
         config,
         szamlazz.Seller,
