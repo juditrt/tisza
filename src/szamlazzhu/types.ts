@@ -22,3 +22,13 @@ export interface Buyer {
   issuerName: string;
   isTEHK: boolean;
 }
+
+export interface Item {
+  label: string;
+  quantity: number;
+  unit: string;
+  vat: string | number;
+  comment?: string;
+  netUnitPrice?: number;
+  grossUnitPrice?: number;
+}

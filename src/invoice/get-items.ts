@@ -1,5 +1,5 @@
 import roundTo from 'round-to';
-import { Buyer } from '../szamlazzhu/types';
+import { Buyer, Item } from '../szamlazzhu/types';
 import getCateringPerTicket from './get-catering-per-ticket';
 import getPropertyByTicketType from './get-property-by-ticket-type';
 
@@ -25,23 +25,37 @@ export default (order, buyer: Buyer, eventConfig) => order.line_items.reduce((it
     const cateringPartial = getCateringPerTicket(title, eventConfig);
     const ticketPartial = roundTo(price - (cateringPartial * 1.27), 2);
 
-		items.push({
+    const item: Item = {
       label: title,
       quantity,
       unit: 'qt',
       vat: vatRate,
-      grossUnitPrice: ticketPartial, // calculates gross and net values from per item net
       comment: `Ticket for ${eventConfig.label}, ${date}`,
-    });
+    }
+
+    if (vatRate === 'TEHK') {
+      item.netUnitPrice = ticketPartial;
+    } else {
+      item.grossUnitPrice = ticketPartial; // calculates gross and net values from per item net
+    }
+
+		items.push(item);
 
     if (cateringPartial !== 0) {
-      items.push({
+      const cateringItem: Item = {
         label: 'Conference catering fee',
         quantity,
         unit: 'qt',
         vat: vatRate,
-        grossUnitPrice: roundTo(cateringPartial * 1.27, 2), // calculates gross and net values from per item net
-      });
+      }
+
+      if (vatRate === 'TEHK') {
+        cateringItem.netUnitPrice = roundTo(cateringPartial * 1.27, 2);
+      } else {
+        cateringItem.grossUnitPrice = roundTo(cateringPartial * 1.27, 2); // calculates gross and net values from per item net
+      }
+
+      items.push(cateringItem);
     }
 
     return items;

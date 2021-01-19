@@ -3,6 +3,7 @@ import createInvoice from '../src/invoice/create'
 import createClient from '../src/szamlazzhu/create-client'
 
 import simpleOrder from './mocks/simple.order'
+import euCompanyOrder from './mocks/eu-company.order'
 import simpleConfig from './mocks/simple.config'
 
 const token = 'ABCDEFGHIJK'
@@ -19,6 +20,13 @@ describe('integration', () => {
 
   test('simple', async () => {
     const invoice = await createInvoice(simpleOrder, simpleConfig);
+    const client = createClient(simpleConfig, token)
+    const xml = client._generateInvoiceXML(invoice)
+    expect(xml).toMatchSnapshot();
+  })
+
+  test('EU company', async () => {
+    const invoice = await createInvoice(euCompanyOrder, simpleConfig);
     const client = createClient(simpleConfig, token)
     const xml = client._generateInvoiceXML(invoice)
     expect(xml).toMatchSnapshot();

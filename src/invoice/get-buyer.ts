@@ -14,7 +14,6 @@ export default async (order) : Promise<Buyer> => {
       city,
       zip_postal_code: zip = '',
       country: countryCode,
-      country_name: country,
       state_province_region: state = '',
     },
   } = order;
@@ -37,12 +36,11 @@ export default async (order) : Promise<Buyer> => {
     }
   }
 
-
   const data : Buyer = {
     name: buyerName,
     email,
     sendEmail: true,
-    country,
+    country: countryCode,
     taxNumber,
     taxSubject: getTaxSubject(order),
     zip,
