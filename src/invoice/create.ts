@@ -19,7 +19,7 @@ export default async (
   const items = getItems(order, buyer, config).map(item => new Item(item));
 
   if (process.env.DEBUG) {
-    console.log(yaml.stringify(order));
+    console.warn(yaml.stringify(order));
   }
 
   const currency = config.invoice.currency;
