@@ -31,5 +31,6 @@ export interface Item {
   comment?: string;
   netValue?: number;
   netUnitPrice?: number;
+  grossValue?: number;
   grossUnitPrice?: number;
 }
