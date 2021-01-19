@@ -28,7 +28,7 @@ export default async (request, reply) => {
     if (process.env.NODE_ENV === 'production') {
       const result = await sendInvoice(
          invoice,
-         createClient(request.eventConfig)
+         createClient(request.eventConfig, process.env.SZAMLAZZ_TOKEN)
       );
       reply.send(result);
     } else {
