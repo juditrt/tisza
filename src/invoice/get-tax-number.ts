@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 export default (order) => {
   const {
     billing_address: {

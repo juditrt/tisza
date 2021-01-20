@@ -20,4 +20,17 @@ export interface Buyer {
   identifier: number;
   phone: string;
   issuerName: string;
+  isTEHK: boolean;
+}
+
+export interface Item {
+  label: string;
+  quantity: number;
+  unit: string;
+  vat: string | number;
+  comment?: string;
+  netValue?: number;
+  netUnitPrice?: number;
+  grossValue?: number;
+  grossUnitPrice?: number;
 }

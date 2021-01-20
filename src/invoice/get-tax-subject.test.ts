@@ -118,7 +118,7 @@ const orderData = {
 
 
 describe('get tax subject', () => {
-  test('not a tax subject', async () => {
+  test('not a tax subject', () => {
       const order = JSON.parse(JSON.stringify(orderData));
 
       order.billing_address.company_name = '';
@@ -129,7 +129,7 @@ describe('get tax subject', () => {
       expect(taxSubject.value).toBe(-1);
   });
 
-  test('eu vat subject', async () => {
+  test('eu vat subject', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
     order.billing_address.company_name = 'EU Company';
@@ -140,7 +140,7 @@ describe('get tax subject', () => {
     expect(taxSubject.value).toBe(6);
   });
 
-  test('hungarian vat subject', async () => {
+  test('hungarian vat subject', () => {
     const order = JSON.parse(JSON.stringify(orderData));
     order.billing_address.company_name = 'Hungarian Company';
     order.billing_address.country = 'HU';
@@ -149,7 +149,7 @@ describe('get tax subject', () => {
     expect(taxSubject.value).toBe(1);
   });
 
-  test('non eu vat subject', async () => {
+  test('non eu vat subject', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
     order.billing_address.company_name = 'USA Company';
@@ -160,7 +160,7 @@ describe('get tax subject', () => {
     expect(taxSubject.value).toBe(7);
   });
 
-  test('unknown vat subject status', async () => {
+  test('unknown vat subject status', () => {
     const order = JSON.parse(JSON.stringify(orderData));
     order.billing_address.company_name = '';
     order.billing_address.country = 'EE';

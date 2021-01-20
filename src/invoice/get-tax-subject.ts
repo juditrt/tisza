@@ -1,41 +1,11 @@
 import szamlazz from '@jssc/szamlazz.js';
-
-const EUCountryCodes = [
-  'BE',
-  'BG',
-  'CZ',
-  'DK',
-  'DE',
-  'EE',
-  'IE',
-  'EL',
-  'GR',
-  'ES',
-  'FR',
-  'HR',
-  'IT',
-  'CY',
-  'LV',
-  'LT',
-  'LU',
-  'MT',
-  'NL',
-  'AT',
-  'PL',
-  'PT',
-  'RO',
-  'SI',
-  'SK',
-  'FI',
-  'SE',
-  'UK',
-];
+import countryCodes from '../lib/countrycodes';
 
 export default (order) => {
   const {
     billing_address: {
       company_name,
-      country,
+      country: countryCode,
       vat_number,
     },
   } = order;
@@ -44,11 +14,11 @@ export default (order) => {
     return szamlazz.TaxSubject.NoTaxID;
   }
 
-  if (company_name && country === 'HU') {
+  if (company_name && countryCodes(countryCode).isHungarian()) {
     return szamlazz.TaxSubject.HungarianTaxID;
   }
 
-  if (company_name && EUCountryCodes.includes(country)) {
+  if (company_name && countryCodes(countryCode).isEuropean()) {
     return szamlazz.TaxSubject.EUCompany;
   }
 

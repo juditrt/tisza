@@ -119,7 +119,6 @@ const orderData = {
 
 
 describe('get payment method from order', () => {
-
   test('stripe', () => {
     const order = JSON.parse(JSON.stringify(orderData));
 
@@ -136,7 +135,6 @@ describe('get payment method from order', () => {
 
     const paymentMethod = getPaymentMethod(order);
     expect(paymentMethod.value).toBe('PayPal');
-
   });
 
   test('default to paypal', () => {
@@ -146,7 +144,5 @@ describe('get payment method from order', () => {
 
     const paymentMethod = getPaymentMethod(order);
     expect(paymentMethod.value).toBe('PayPal');
-
   });
-
 });

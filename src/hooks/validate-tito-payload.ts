@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-concat */
 import crypto from 'crypto';
 
-export default async (request, reply) => {
+export default (request, reply) => {
   // if (process.env.NODE_ENV !== 'production') return;
 
   const signature = request.headers['tito-signature'];

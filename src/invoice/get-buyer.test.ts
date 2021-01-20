@@ -1,9 +1,5 @@
-import { promisify } from 'util';
-import fs from 'fs';
-import yaml from 'yaml';
 import getBuyer from './get-buyer';
 
-const readFile = promisify(fs.readFile);
 const order = {
   id: 6050550,
   text: 'Test Usaer registered a ticket',
@@ -120,10 +116,11 @@ const order = {
   },
 };
 
+const deepClone = data => JSON.parse(JSON.stringify(data));
 
 describe('get buyer', () => {
   test('buyer with vat number', async () => {
-      const buyer = getBuyer(order);
+      const buyer = await getBuyer(order);
       expect(buyer.taxNumber).toBe('234536');
   });
 
@@ -132,7 +129,82 @@ describe('get buyer', () => {
     order2.billing_address = { ...order.billing_address };
     order2.billing_address.vat_number = '0';
 
-    const buyer = getBuyer(order2);
+    const buyer = await getBuyer(order2);
     expect(buyer.taxNumber).toBe('');
+  });
 });
+
+
+describe('buyer VAT TEHK type',  () => {
+  test('HU without VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = '';
+    orderData.billing_address.country = 'HU';
+    orderData.billing_address.vat_number = '0';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(false);
+  });
+
+  test('HU with VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = 'Cegnev KFt';
+    orderData.billing_address.country = 'HU';
+    orderData.billing_address.vat_number = 'HU12345678';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(false);
+  });
+
+  test('EU without VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = '';
+    orderData.billing_address.country = 'DE';
+    orderData.billing_address.vat_number = '0';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(false);
+  });
+
+  test('EU with VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = 'SinnerSchrader Deutschland GmbH';
+    orderData.billing_address.country = 'DE';
+    orderData.billing_address.vat_number = 'DE812160091';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(true);
+  });
+
+  test('outside EU without VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = '';
+    orderData.billing_address.country = 'US';
+    orderData.billing_address.vat_number = '0';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(false);
+  });
+
+  test('outside EU with VAT', async () => {
+    const orderData = deepClone(order);
+
+    orderData.company_name = 'Company Ltd';
+    orderData.billing_address.country = 'US';
+    orderData.billing_address.vat_number = '13245345';
+
+    const buyer = await getBuyer(orderData);
+
+    expect(buyer.isTEHK).toBe(false);
+  });
 });

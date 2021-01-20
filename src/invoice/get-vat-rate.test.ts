@@ -1,13 +1,6 @@
-import { promisify } from 'util';
-import fs from 'fs';
-import yaml from 'yaml';
-import szamlazz from '@jssc/szamlazz.js';
-import create from './create';
+import getVatRate from './get-vat-rate';
 
-jest.mock('@jssc/szamlazz.js');
-
-const readFile = promisify(fs.readFile);
-const order = {
+const orderData = {
   id: 6050550,
   text: 'Test Usaer registered a ticket',
   event: {
@@ -124,24 +117,67 @@ const order = {
 };
 
 
-describe('create invoice', () => {
-  test('szamlazz invoice invoked with proper params', async () => {
-      const file = await readFile('./test-config.yaml', 'utf8');
-      const config = (yaml.parse(file)).events['integration-test-event-2020'];
+describe('get vat rate', () => {
+  test('hu individual / non vat subject', () => {
+      const order = JSON.parse(JSON.stringify(orderData));
 
-      await create(
-        order,
-        config,
-        szamlazz.Seller,
-        szamlazz.Buyer,
-        szamlazz.Item,
-        szamlazz.Invoice
-      );
+      order.billing_address.company_name = '';
+      order.billing_address.vat_number = '0';
+      order.billing_address.country = 'HU';
 
-      const invoice = szamlazz.Invoice.mock.calls[0][0];
+      const vatRate = getVatRate(order);
+      expect(vatRate).toBe(27);
+  });
 
-      expect(invoice.paymentMethod.value).toBe('PayPal');
-      expect(invoice.currency.value).toBe('EUR');
-      expect(invoice.language.value).toBe('en');
+  test('hu vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+
+    order.billing_address.company_name = 'HU Company Kft';
+    order.billing_address.country = 'HU';
+    order.billing_address.vat_number = '12312412';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
+  });
+
+  test('eu individual / non vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = '';
+    order.billing_address.vat_number = '0';
+    order.billing_address.country = 'DE';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
+  });
+
+  test('eu vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+
+    order.billing_address.company_name = 'EU Company Gmbh';
+    order.billing_address.vat_number = '123112';
+    order.billing_address.country = 'DE';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe('TEHK');
+  });
+
+  test('non-eu individual / non vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = '';
+    order.billing_address.vat_number = '0';
+    order.billing_address.country = 'US';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe(27);
+  });
+
+  test('non-eu vat subject', () => {
+    const order = JSON.parse(JSON.stringify(orderData));
+    order.billing_address.company_name = 'NonEu Company Ltd';
+    order.billing_address.country = 'US';
+    order.billing_address.vat_number = '12312412';
+
+    const vatRate = getVatRate(order);
+    expect(vatRate).toBe('TEHK');
   });
 });
