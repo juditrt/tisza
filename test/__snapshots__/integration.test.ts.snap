@@ -851,7 +851,7 @@ exports[`vat entries Non-EU company 1`] = `
     <fizmod>PayPal</fizmod>
     <penznem>EUR</penznem>
     <szamlaNyelve>en</szamlaNyelve>
-    <megjegyzes>
+    <megjegyzes>Falling outside the territorial scope of the VAT Act.
 The invoice includes mediated services.
 Paid in full.
 This document was issued electronically and is therefore valid without signature.</megjegyzes>

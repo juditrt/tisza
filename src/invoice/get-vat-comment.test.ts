@@ -82,6 +82,6 @@ describe('get VAT related comments', () => {
 
     const comment = getVATComment(buyer);
 
-    expect(comment).toBe('');
+    expect(comment).toBe(NON_VAT_ACT);
   });
 });

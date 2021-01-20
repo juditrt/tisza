@@ -14,7 +14,6 @@ export default (buyer: Buyer) => {
 
   if (isEU && buyer.isTEHK) return REVERSE_CHARGE_VAT;
 
-  if (!isHU && !isEU && buyer.taxNumber) return '';
+  if (!isHU && !isEU) return NON_VAT_ACT;
 
-  if (!isHU && !isEU && buyer.taxNumber === '') return NON_VAT_ACT;
 };
