@@ -3,9 +3,11 @@ import getTaxNumber from './get-tax-number';
 import { Buyer } from '../szamlazzhu/types';
 import countryCodes from '../lib/countrycodes';
 import checkVIES from '../lib/check-vies'
+import sendMail from '../lib/send-mail'
 
 export default async (order) : Promise<Buyer> => {
   const {
+    reference,
     name,
     email,
     company_name,
@@ -31,6 +33,8 @@ export default async (order) : Promise<Buyer> => {
     try {
       isTEHK = await checkVIES(countryCode, taxNumber);
     } catch (e) {
+      sendMail(`VIES check failed for ${reference}`, `The VIES status for order ${reference} could not be validated: ${e.message}. Make sure the invoice is correct.`)
+
       console.warn('VIES check failed')
       console.warn(e)
     }

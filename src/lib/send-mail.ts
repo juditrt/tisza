@@ -6,9 +6,9 @@ const {
   ERROR_EMAIL_ADDRESS,
 } = process.env;
 
-const mailgunInstance = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN });
 
 export default (subject, text) => {
+  const mailgunInstance = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN });
   const data = {
     from: `TISZA proxy <${ERROR_EMAIL_ADDRESS}>`,
     to: ERROR_EMAIL_ADDRESS,
