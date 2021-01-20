@@ -1,6 +1,6 @@
 const { TITO_WEBHOOK_TOKEN } = process.env;
 
-export default async (request, reply) => {
+export default (request, reply) => {
   const {
     query: {
       token,
