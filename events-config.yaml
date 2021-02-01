@@ -13,9 +13,8 @@ events:
       id-prefix: "TLNTB"
       logo-image: ""
       comment: |
-        The invoice includes mediated services.
+       
         Paid in full.
-        This document was issued electronically and is therefore valid without signature.
       e-invoice: false
       currency: EUR
     email:
